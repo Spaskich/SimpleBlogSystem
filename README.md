@@ -22,7 +22,7 @@ Your Web application should use the following technologies, frameworks and devel
 *	Use **AJAX** request to asynchronously load and display data somewhere in your application.
 *	Write **unit tests** for your logic, controllers, actions, helpers, etc.
 *	Implement **error handling and data validation** to avoid crashes when invalid data is entered (both client-side and server-side).
-*	Handle correctly the special **HTML** characters and tags like **<br /> and <script>** (escape special characters).
+*	Handle correctly the special **HTML** characters and tags like `<br />` and `<script>` (escape special characters).
 *	Use at least one **Interceptor**
 *	Use **ModelМapper** or other mapping library.
 ### Additional Requirements
