@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="jumbotron">
+        <h1>Welcome to our Blog</h1>
+
+        <div>Logged In User</div>
+        <div sec:authentication="name"></div>
+        <div sec:authorize="hasRole('USER')">
+            This is a section visible to users only
+        </div>
+        <div sec:authorize="hasRole('ADMIN')">
+            This is a section visible to ADMINS only
+        </div>
+    </div>
+
+
+    <div th:each="article : ${articles}">
+        <div class="col-12 ">
+            <article>
+                <header>
+                    <a class="title h2" th:text="${article.getTitle()}" th:href="'/article/view/' + ${article.getId()}"></a>
+                </header>
+
+                <small class="author">
+                    <i th:text="'Posted on ' + ${#dates.format(article.getDatePublished(), 'dd MMMM yyyy')}"></i>
+                    <i th:text="' by ' + ${article.getAuthor().getUsername()}"></i>
+                </small>
+
+                <p th:text="${article.getText()}"></p>
+
+
+                <!--<footer>-->
+                <!--<div class="pull-right">-->
+                <!--<a class="btn btn-success btn-md"-->
+                <!--<a href="<?=APP_ROOT?>/home/view/<?=$post['id']?>">-->
+                <!--Read more...-->
+                <!--</a>-->
+                <!--</div>-->
+                <!--</footer>-->
+
+            </article>
+        </div>
+    </div>
+
+</div>

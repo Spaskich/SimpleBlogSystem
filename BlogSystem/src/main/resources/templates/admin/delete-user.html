@@ -1,0 +1,38 @@
+<div class="container">
+
+    <h1>Delete user</h1>
+    <br />
+
+    <form method="post">
+        <div class="form-group row">
+            <label class="form-control-label">Username</label>
+            <input type="text" class="form-control" th:value="${user.getUsername()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label">Active</label>
+            <input type="text" class="form-control" th:value="${user.isAccountNonExpired()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label">Unlocked</label>
+            <input type="text" class="form-control" th:value="${user.isAccountNonLocked()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label">Credentials active</label>
+            <input type="text" class="form-control" th:value="${user.isCredentialsNonExpired()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label">Enabled</label>
+            <input type="text" class="form-control" th:value="${user.isEnabled()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <label class="form-control-label">Role</label>
+            <input type="text" class="form-control" th:value="${user.getAuthorities().iterator().next().getAuthority()}" readonly="readonly"/>
+        </div>
+        <div class="form-group row">
+            <a class="btn btn-info" href="/admin/users" role="button" >Cancel</a>
+            <input type="submit" class="btn btn-danger" value="Delete"/>
+        </div>
+
+    </form>
+</div>
+

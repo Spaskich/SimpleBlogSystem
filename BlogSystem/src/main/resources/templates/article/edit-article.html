@@ -1,0 +1,20 @@
+<div class="container">
+
+    <h1>Edit Article</h1>
+    <br/>
+
+    <form method="post" th:object="${article}">
+        <div class="form-group" th:classappend="${#fields.hasErrors('title')} ? 'has-danger'">
+            <label class="form-control-label" for="inputTitle">Title</label>
+            <input type="text" class="form-control form-control-danger" id="inputTitle" th:field="*{title}"/>
+            <div class="form-control-feedback" th:each="error : ${#fields.errors('title')}" th:text="${error}"></div>
+        </div>
+        <div class="form-group" th:classappend="${#fields.hasErrors('text')}? 'has-danger'">
+            <label class="form-control-label" for="inputText">Article Body</label>
+            <textarea class="form-control form-control-danger" id="inputText" rows="20" th:field="*{text}"></textarea>
+            <div class="form-control-feedback" th:each="error : ${#fields.errors('text')}" th:text="${error}"></div>
+        </div>
+        <a class="btn btn-outline-info" href="/articles/all">Cancel</a>
+        <input type="submit" class="btn btn-success" value="Edit"/>
+    </form>
+</div>
