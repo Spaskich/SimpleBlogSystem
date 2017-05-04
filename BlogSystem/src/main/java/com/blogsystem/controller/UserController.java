@@ -1,12 +1,16 @@
 package com.blogsystem.controller;
 
 import com.blogsystem.configuration.error.Errors;
+import com.blogsystem.entity.User;
 import com.blogsystem.model.user.RegistrationModel;
 import com.blogsystem.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +31,7 @@ public class UserController {
     @GetMapping("/register")
     public String getRegisterPage(@ModelAttribute RegistrationModel registrationModel, Model model){
 
-        model.addAttribute("view","register");
+        model.addAttribute("view","user/register");
 
         return "default-page";
     }
@@ -35,8 +39,18 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute RegistrationModel registrationModel, BindingResult bindingResult, Model model){
 
+        if (!registrationModel.getPassword().equals(registrationModel.getConfirmPassword())) {
+            bindingResult.addError(new FieldError("registrationModel", "confirmPassword", "The two passwords must be the same."));
+        }
+
         if(bindingResult.hasErrors()){
-            model.addAttribute("view", "register");
+
+            System.out.println(bindingResult.getFieldErrors().get(0).getObjectName());
+            System.out.println(bindingResult.getFieldErrors().get(0).getDefaultMessage());
+            System.out.println(bindingResult.getFieldErrors().get(0).getField());
+
+
+            model.addAttribute("view", "user/register");
 
             return "default-page";
         }
@@ -50,7 +64,7 @@ public class UserController {
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false) String error, Model model){
 
-        model.addAttribute("view","login");
+        model.addAttribute("view","user/login");
 
         if(error != null){
             model.addAttribute("error", Errors.INVALID_CREDENTIALS);
@@ -59,12 +73,45 @@ public class UserController {
         return "default-page";
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/profile")
     public String getUserPage(Principal principal, Model model){
-        //System.out.println(principal.getName());
 
-        model.addAttribute("view", "user");
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("user", user);
+        model.addAttribute("view", "user/profile");
 
         return "default-page";
+    }
+
+    @GetMapping("/user/profile/edit")
+    public String getEditUserPage(@ModelAttribute RegistrationModel registrationModel, Model model){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        registrationModel.setUsername(user.getUsername());
+
+        model.addAttribute("view","user/edit");
+
+        return "default-page";
+    }
+
+    @PostMapping("/user/profile/edit")
+    public String editUser(@Valid @ModelAttribute RegistrationModel registrationModel, BindingResult bindingResult, Model model){
+
+        if (!registrationModel.getPassword().equals(registrationModel.getConfirmPassword())) {
+            bindingResult.addError(new FieldError("registrationModel", "confirmPassword", "The two passwords must be the same."));
+        }
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("view", "user/edit");
+
+            return "default-page";
+        }
+
+        this.userService.edit(registrationModel);
+
+
+        return "redirect:/user/profile";
     }
 }

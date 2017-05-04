@@ -28,51 +28,43 @@ public class AdminController {
     @GetMapping("")
     public String getAdminPage(Model model) {
 
-        model.addAttribute("view", "admin");
-
-        return "default-page";
-    }
-
-    @GetMapping("users")
-    public String getUsersPage(Model model) {
         List<EditUserModel> users = this.userService.loadAll();
 
         model.addAttribute("users", users);
-        model.addAttribute("view", "admin/users");
+        model.addAttribute("view", "admin/admin");
 
 
         return "default-page";
     }
 
-    @GetMapping("users/edit/{id}")
-    public String getEditUserPage(@PathVariable Long id, Model model) {
-
-        EditUserModel editUserModel = this.userService.loadOneById(id);
-        List<RoleModel> roles = this.roleService.loadAllByAuthorityDesc();
-//        for (RoleModel role : roles) {
-//            System.out.println(role.getAuthority());
-//        }
-
-        model.addAttribute("user", editUserModel);
-        model.addAttribute("roles", roles);
-        model.addAttribute("view", "admin/edit-user");
-
-        return "default-page";
-    }
-
-    @PostMapping("users/edit/{id}")
-    public String editUser(@ModelAttribute EditUserModel editUserModel, BindingResult bindingResult, @PathVariable Long id) {
-
-        //this.userService.edit(editUserModel);
-        System.out.println(editUserModel.getUsername());
-        System.out.println(editUserModel.isAccountNonExpired());
-        System.out.println(editUserModel.isAccountNonLocked());
-        System.out.println(editUserModel.isCredentialsNonExpired());
-        System.out.println(editUserModel.getIsEnabled());
-        //System.out.println(editUserModel.getAuthorities().iterator().next().getAuthority());
-
-        return "redirect:/admin/users";
-    }
+//    @GetMapping("users/edit/{id}")
+//    public String getEditUserPage(@PathVariable Long id, Model model) {
+//
+//        EditUserModel editUserModel = this.userService.loadOneById(id);
+//        List<RoleModel> roles = this.roleService.loadAllByAuthorityDesc();
+////        for (RoleModel role : roles) {
+////            System.out.println(role.getAuthority());
+////        }
+//
+//        model.addAttribute("user", editUserModel);
+//        model.addAttribute("roles", roles);
+//        model.addAttribute("view", "admin/edit-user");
+//
+//        return "default-page";
+//    }
+//
+//    @PostMapping("users/edit/{id}")
+//    public String editUser(@ModelAttribute EditUserModel editUserModel, BindingResult bindingResult, @PathVariable Long id) {
+//
+//        //this.userService.edit(editUserModel);
+//        System.out.println(editUserModel.getUsername());
+//        System.out.println(editUserModel.isAccountNonExpired());
+//        System.out.println(editUserModel.isAccountNonLocked());
+//        System.out.println(editUserModel.isCredentialsNonExpired());
+//        System.out.println(editUserModel.isEnabled());
+//        //System.out.println(editUserModel.getAuthorities().iterator().next().getAuthority());
+//        return "redirect:/admin/users";
+//    }
 
     @GetMapping("users/delete/{id}")
     public String getDeleteUserPage(@PathVariable Long id, Model model) {
@@ -90,6 +82,6 @@ public class AdminController {
 
         this.userService.delete(id);
 
-        return "redirect:/admin/users";
+        return "redirect:/admin";
     }
 }

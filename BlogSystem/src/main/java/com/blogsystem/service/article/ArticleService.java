@@ -15,6 +15,8 @@ public interface ArticleService {
 
     void edit(EditArticleModel editArticleModel);
 
+    void delete(EditArticleModel editArticleModel);
+
     List<EditArticleModel> loadAll();
 
     List<EditArticleModel> loadAllByAuthor(User author);

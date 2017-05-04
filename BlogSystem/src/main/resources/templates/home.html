@@ -2,13 +2,8 @@
     <div class="jumbotron">
         <h1>Welcome to our Blog</h1>
 
-        <div>Logged In User</div>
-        <div sec:authentication="name"></div>
-        <div sec:authorize="hasRole('USER')">
-            This is a section visible to users only
-        </div>
-        <div sec:authorize="hasRole('ADMIN')">
-            This is a section visible to ADMINS only
+        <div sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_AUTHOR') OR hasRole('ROLE_USER')">
+            <p>Hello, <span sec:authentication="name"></span></p>
         </div>
     </div>
 

@@ -14,7 +14,7 @@ public interface UserService extends UserDetailsService {
 
     void register(RegistrationModel registrationModel);
 
-    void edit(EditUserModel editUserModel);
+    void edit(RegistrationModel registrationModel);
 
     @PreAuthorize("hasRole('ADMIN')")
     void delete(Long id);

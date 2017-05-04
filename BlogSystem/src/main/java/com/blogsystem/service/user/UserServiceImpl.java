@@ -7,8 +7,10 @@ import com.blogsystem.model.user.EditUserModel;
 import com.blogsystem.model.user.RegistrationModel;
 import com.blogsystem.repository.role.RoleRepository;
 import com.blogsystem.repository.user.UserRepository;
+import com.sun.org.apache.regexp.internal.RE;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,9 +57,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void edit(EditUserModel editUserModel) {
-        ModelMapper modelMapper = new ModelMapper();
-        User user = modelMapper.map(editUserModel, User.class);
+    public void edit(RegistrationModel registrationModel) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String encryptedPassword = this.bCryptPasswordEncoder.encode(registrationModel.getPassword());
+        user.setPassword(encryptedPassword);
+        user.setUsername(registrationModel.getUsername());
+
         this.userRepository.saveAndFlush(user);
 
     }

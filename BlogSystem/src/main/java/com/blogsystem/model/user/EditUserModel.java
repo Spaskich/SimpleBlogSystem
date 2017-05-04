@@ -70,7 +70,7 @@ public class EditUserModel {
         isCredentialsNonExpired = credentialsNonExpired;
     }
 
-    public Boolean getIsEnabled() {
+    public Boolean isEnabled() {
         return isEnabled;
     }
 

@@ -49,6 +49,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public void delete(EditArticleModel editArticleModel) {
+
+        Article article = this.articleRepository.findOneById(editArticleModel.getId());
+
+        this.articleRepository.delete(editArticleModel.getId());
+    }
+
+    @Override
     public List<EditArticleModel> loadAll() {
 
         List<EditArticleModel> articleModels = new ArrayList<>();

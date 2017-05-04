@@ -10,7 +10,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item" sec:authorize="hasRole('ROLE_AUTHOR') OR hasRole('ROLE_ADMIN')">
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_AUTHOR')">
                     <a class="btn  align-middle btn-outline-success" href="/articles/publish" ><span class="glyphicon glyphicon-plus"></span> New Article</a>
                 </li>
             </ul>
@@ -33,10 +33,13 @@
                             Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="/user">Profile</a>
+                            <a class="dropdown-item" href="/user/profile">Profile</a>
 
                             <div sec:authorize="hasRole('ADMIN')">
                                 <a class="dropdown-item" href="/admin">Admin</a>
+                            </div>
+                            <div sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_AUTHOR')">
+                                <a class="dropdown-item" href="/articles">Articles</a>
                             </div>
                         </div>
                     </li>

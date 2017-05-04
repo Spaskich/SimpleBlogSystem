@@ -55,7 +55,7 @@ public class ArticleController {
         return "redirect:/";
     }
 
-    @GetMapping("/articles/all")
+    @GetMapping("/articles")
     public String getUsersPage(Model model) {
         List<EditArticleModel> articleModels = this.articleService.loadAll();
 
@@ -86,7 +86,7 @@ public class ArticleController {
 
         this.articleService.edit(articleModel);
 
-        return "redirect:/articles/all";
+        return "redirect:/articles";
     }
 
     @GetMapping("/article/view/{id}")
@@ -98,5 +98,24 @@ public class ArticleController {
         model.addAttribute("view", "article/view");
 
         return "default-page";
+    }
+
+    @GetMapping("/articles/delete/{id}")
+    public String getDeleteArticlePage(@PathVariable Long id, Model model) {
+
+        EditArticleModel articleModel = this.articleService.loadOneById(id);
+
+        model.addAttribute("article", articleModel);
+        model.addAttribute("view", "article/delete-article");
+
+        return "default-page";
+    }
+
+    @PostMapping("/articles/delete/{id}")
+    public String deleteArticle(@Valid @ModelAttribute EditArticleModel articleModel, Model model, @PathVariable Long id) {
+
+        this.articleService.delete(articleModel);
+
+        return "redirect:/articles";
     }
 }

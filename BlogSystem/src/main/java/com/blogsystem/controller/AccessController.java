@@ -13,7 +13,7 @@ public class AccessController {
     @GetMapping("/unauthorized")
     public String getUnauthorizedPage(Model model){
 
-        model.addAttribute("view", "unauthorized");
+        model.addAttribute("view", "error/unauthorized");
 
         return "default-page";
     }

@@ -14,7 +14,7 @@
             <textarea class="form-control form-control-danger" id="inputText" rows="20" th:field="*{text}"></textarea>
             <div class="form-control-feedback" th:each="error : ${#fields.errors('text')}" th:text="${error}"></div>
         </div>
-        <a class="btn btn-outline-info" href="/articles/all">Cancel</a>
+        <a class="btn btn-outline-info" href="/articles">Cancel</a>
         <input type="submit" class="btn btn-success" value="Edit"/>
     </form>
 </div>

@@ -1,6 +1,11 @@
 package com.blogsystem.entity;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -16,9 +21,10 @@ public class Article {
 
     private String title;
 
+    @Type(type = "text")
     private String text;
 
-    @ManyToOne(cascade = {CascadeType.ALL},fetch= FetchType.EAGER)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private User author;
 

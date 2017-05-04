@@ -1,0 +1,31 @@
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-inverse">
+        <tr>
+            <!--<th>#</th>-->
+            <th>Username</th>
+            <th>Active</th>
+            <th>Unlocked</th>
+            <th>Credentials active</th>
+            <th>Enabled</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <!--<th scope="row">1</th>-->
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.isAccountNonExpired()}"></td>
+            <td th:text="${user.isAccountNonLocked()}"></td>
+            <td th:text="${user.isCredentialsNonExpired()}"></td>
+            <td th:text="${user.isEnabled()}"></td>
+            <td th:text="${user.getAuthorities().iterator().next().getAuthority()}"></td>
+            <td>
+                <!--<a class="btn btn-outline-info" th:href="@{'/admin/users/edit/' + ${user.getId()}}" role="button" >Edit</a>-->
+                <a class="btn btn-danger" th:href="@{'/admin/users/delete/' + ${user.getId()}}" role="button" >Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

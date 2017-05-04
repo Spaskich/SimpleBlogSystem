@@ -19,7 +19,7 @@
                 <td th:text="${user.isAccountNonExpired()}"></td>
                 <td th:text="${user.isAccountNonLocked()}"></td>
                 <td th:text="${user.isCredentialsNonExpired()}"></td>
-                <td th:text="${user.getIsEnabled()}"></td>
+                <td th:text="${user.isEnabled()}"></td>
                 <td th:text="${user.getAuthorities().iterator().next().getAuthority()}"></td>
                 <td>
                     <a class="btn btn-outline-info" th:href="@{'/admin/users/edit/' + ${user.getId()}}" role="button" >Edit</a>
