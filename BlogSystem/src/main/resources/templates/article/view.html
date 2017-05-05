@@ -1,24 +1,20 @@
-<div class="container body-content">
-    <div class="row">
-        <div class="col-md-12">
-            <article>
-                <header>
-                    <h2 class="title" th:text="${article.getTitle()}"></h2>
-                </header>
+<div class="container">
+    <br />
 
-                <small class="author">
-                    <i th:text="'Posted on ' + ${#dates.format(article.getDatePublished(), 'dd MMMM yyyy')}"></i>
-                    <i th:text="' by ' + ${article.getAuthor().getUsername()}"></i>
-                </small>
-
-                <p th:text="${article.getText()}"></p>
-
-                <footer>
-                    <div class="pull-right">
-                        <a class="btn btn-success btn-md" href="/">Back &raquo;</a>
-                    </div>
-                </footer>
-            </article>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title" th:text="${article.getTitle()}" th:href="'/article/view/' + ${article.getId()}"></h2>
+        </div>
+        <div class="card-block">
+            <p class="card-text" th:text="${article.getText()}"></p>
+        </div>
+        <div class="card-footer text-muted">
+            <span th:text="'Posted by ' + ${article.getAuthor().getUsername()} "></span>
+            <span th:text="'on ' + ${#dates.format(article.getDatePublished(), 'dd MMMM yyyy HH:mm')}"></span>
         </div>
     </div>
+
+    <br />
+    <div th:replace="/article/add-comment"></div>
+    <div id="comments" th:attr="data-post-id=${article.getId()}"></div>
 </div>

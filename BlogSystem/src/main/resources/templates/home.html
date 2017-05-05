@@ -7,33 +7,22 @@
         </div>
     </div>
 
-
     <div th:each="article : ${articles}">
-        <div class="col-12 ">
-            <article>
-                <header>
-                    <a class="title h2" th:text="${article.getTitle()}" th:href="'/article/view/' + ${article.getId()}"></a>
-                </header>
-
-                <small class="author">
-                    <i th:text="'Posted on ' + ${#dates.format(article.getDatePublished(), 'dd MMMM yyyy')}"></i>
-                    <i th:text="' by ' + ${article.getAuthor().getUsername()}"></i>
-                </small>
-
-                <p th:text="${article.getText()}"></p>
-
-
-                <!--<footer>-->
-                <!--<div class="pull-right">-->
-                <!--<a class="btn btn-success btn-md"-->
-                <!--<a href="<?=APP_ROOT?>/home/view/<?=$post['id']?>">-->
-                <!--Read more...-->
-                <!--</a>-->
-                <!--</div>-->
-                <!--</footer>-->
-
-            </article>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <a th:text="${article.getTitle()}" th:href="'/article/view/' + ${article.getId()}"></a>
+                </h4>
+            </div>
+            <div class="card-block">
+                <p class="card-text" th:text="${article.getText()}"></p>
+            </div>
+            <div class="card-footer text-muted">
+                <span th:text="'Posted by ' + ${article.getAuthor().getUsername()} "></span>
+                <span th:text="'on ' + ${#dates.format(article.getDatePublished(), 'dd MMMM yyyy HH:mm')}"></span>
+            </div>
         </div>
-    </div>
 
+        <br />
+    </div>
 </div>

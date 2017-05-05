@@ -1,0 +1,15 @@
+<div class="card" sec:authorize="isAuthenticated()">
+    <div class="card-header">
+        <h2 class="card-title">Leave a comment</h2>
+    </div>
+
+    <div class="card-block">
+        <form method="post" id="postCommentForm">
+            <div class="form-group" >
+                <label class="form-control-label" for="commentText">Comment:</label>
+                <textarea class="form-control form-control-danger" id="commentText" rows="5s"></textarea>
+            </div>
+            <input type="submit" class="btn btn-success" value="Comment"/>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div th:each="comment : ${comments}">
+    <br/>
+    <div class="card">
+        <div class="card-header">
+            <i th:text="'Posted on ' + ${#dates.format(comment.getDatePublished(), 'dd MMMM yyyy HH:mm')}"></i>
+            <i th:text="' by ' + ${comment.getAuthor().getUsername()}"></i>
+        </div>
+        <div class="card-block">
+            <p class="card-text" th:text="${comment.getText()}"></p>
+        </div>
+    </div>
+</div>

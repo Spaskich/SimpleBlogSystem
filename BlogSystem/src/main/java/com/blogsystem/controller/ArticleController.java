@@ -3,17 +3,23 @@ package com.blogsystem.controller;
 import com.blogsystem.entity.User;
 import com.blogsystem.model.article.EditArticleModel;
 import com.blogsystem.model.article.PublishArticleModel;
+import com.blogsystem.model.comment.CommentViewModel;
+import com.blogsystem.model.comment.PostCommentModel;
 import com.blogsystem.service.article.ArticleService;
+import com.blogsystem.service.comment.CommentService;
 import com.blogsystem.service.user.UserService;
+import com.blogsystem.web.jsonview.Views;
+import com.blogsystem.web.model.AjaxResponseBody;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import sun.text.resources.FormatData;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,6 +32,9 @@ public class ArticleController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private ArticleService articleService;
@@ -97,6 +106,8 @@ public class ArticleController {
         model.addAttribute("article", article);
         model.addAttribute("view", "article/view");
 
+
+
         return "default-page";
     }
 
@@ -117,5 +128,30 @@ public class ArticleController {
         this.articleService.delete(articleModel);
 
         return "redirect:/articles";
+    }
+
+    @GetMapping("/api/article/{id}/comments")
+    public String getComments(@PathVariable Long id, Model model) {
+
+        List<CommentViewModel> commentViewModels = this.commentService.loadCommentsByArticle(id);
+
+        model.addAttribute("comments", commentViewModels);
+
+        return "article/comments";
+    }
+
+    //@JsonView(Views.Public.class)
+    //@PostMapping("/api/article/{id}/comments")
+    @RequestMapping(value = "/api/article/{id}/comments", method = RequestMethod.POST,consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String postComment(@PathVariable Long id, PostCommentModel commentModel) {
+
+        commentModel.setArticleId(id);
+        this.commentService.postComment(commentModel);
+
+        AjaxResponseBody result = new AjaxResponseBody();
+        result.setCode("200");
+        result.setMsg("Comment posted successfully");
+
+        return "article/comments";
     }
 }

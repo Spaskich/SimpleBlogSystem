@@ -1,27 +1,39 @@
-<div class="container">
-    <table class="table table-hover">
-        <thead class="thead-inverse">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Date published</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="article : ${articles}">
-            <th th:text="${article.getId()}"></th>
-            <td th:text="${article.getTitle()}"></td>
-            <td th:text="${article.getAuthor().getUsername()}"></td>
-            <td th:text="${article.getDatePublished()}"></td>
-            <td>
-                <a class="btn btn-outline-info" th:href="@{'/articles/edit/' + ${article.getId()}}" role="button" >Edit</a>
-                <a class="btn btn-danger" th:href="@{'/articles/delete/' + ${article.getId()}}" role="button" >Delete</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<br />
 
-    <a class="btn  align-middle btn-success" href="/articles/publish" ><span class="glyphicon glyphicon-plus"></span> New Article</a>
+<div class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Article Administration</h2>
+        </div>
+        <div class="card-block">
+            <table class="table table-hover">
+                <thead class="thead-inverse">
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Date published</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article : ${articles}">
+                    <th th:text="${article.getId()}"></th>
+                    <td th:text="${article.getTitle()}"></td>
+                    <td th:text="${article.getAuthor().getUsername()}"></td>
+                    <td th:text="${article.getDatePublished()}"></td>
+                    <td>
+                        <a class="btn btn-outline-info" th:href="@{'/articles/edit/' + ${article.getId()}}" role="button" >Edit</a>
+                        <a class="btn btn-danger" th:href="@{'/articles/delete/' + ${article.getId()}}" role="button" >Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <a class="btn  align-middle btn-success" href="/articles/publish" ><span class="glyphicon glyphicon-plus"></span> New Article</a>
+        </div>
+    </div>
 </div>
+
+<br />

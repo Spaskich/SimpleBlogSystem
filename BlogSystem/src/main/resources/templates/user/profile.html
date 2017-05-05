@@ -1,11 +1,21 @@
+<br />
+
 <div class="container">
 
-    <h1>Profile</h1>
-    <form method="get" th:object="${user}">
-        <div class="form-group">
-            <label class="form-control-label" for="inputUsername">Username</label>
-            <input type="text" class="form-control form-control-danger" id="inputUsername" th:value="*{username}" readonly="readonly"/>
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Profile</h2>
         </div>
-        <a href="/user/profile/edit" class="btn btn-outline-success">Edit profile</a>
-    </form>
+        <div class="card-block">
+            <form method="get" th:object="${user}">
+                <div class="form-group">
+                    <label class="form-control-label" for="inputUsername">Username</label>
+                    <input type="text" class="form-control form-control-danger" id="inputUsername" th:value="*{username}" readonly="readonly"/>
+                </div>
+                <a href="/user/profile/edit" class="btn btn-outline-success">Edit profile</a>
+            </form>
+        </div>
+    </div>
 </div>
+
+<br />
