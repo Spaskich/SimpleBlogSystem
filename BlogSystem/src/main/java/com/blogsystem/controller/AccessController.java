@@ -14,6 +14,7 @@ public class AccessController {
     public String getUnauthorizedPage(Model model){
 
         model.addAttribute("view", "error/unauthorized");
+        model.addAttribute("title", "Unauthorized");
 
         return "default-page";
     }

@@ -31,6 +31,7 @@ public class AdminController {
         List<EditUserModel> users = this.userService.loadAll();
 
         model.addAttribute("users", users);
+        model.addAttribute("title", "Admin Panel");
         model.addAttribute("view", "admin/admin");
 
 
@@ -72,6 +73,7 @@ public class AdminController {
         EditUserModel editUserModel = this.userService.loadOneById(id);
 
         model.addAttribute("user", editUserModel);
+        model.addAttribute("title", "Delete User");
         model.addAttribute("view", "admin/delete-user");
 
         return "default-page";

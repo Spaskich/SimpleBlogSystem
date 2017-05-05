@@ -26,6 +26,7 @@ public class ErrorController {
 
         // Otherwise setup and send the user to a default error-view.
         model.addAttribute("view", "error/error");
+        model.addAttribute("title", "Something went wrong!");
 
         return "default-page";
     }

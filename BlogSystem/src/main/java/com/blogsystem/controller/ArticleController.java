@@ -43,6 +43,7 @@ public class ArticleController {
     public String getNewArticlePage(@ModelAttribute PublishArticleModel publishArticleModel, Model model) {
 
         model.addAttribute("view", "article/publish-article");
+        model.addAttribute("title", "Publish Article");
 
 
         return "default-page";
@@ -69,6 +70,7 @@ public class ArticleController {
         List<EditArticleModel> articleModels = this.articleService.loadAll();
 
         model.addAttribute("articles", articleModels);
+        model.addAttribute("title", "Articles");
         model.addAttribute("view", "article/articles");
 
         return "default-page";
@@ -80,6 +82,7 @@ public class ArticleController {
         EditArticleModel articleModel = this.articleService.loadOneById(id);
 
         model.addAttribute("article", articleModel);
+        model.addAttribute("title", "Edit Article");
         model.addAttribute("view", "article/edit-article");
 
         return "default-page";
@@ -104,6 +107,7 @@ public class ArticleController {
         EditArticleModel article = this.articleService.loadOneById(id);
 
         model.addAttribute("article", article);
+        model.addAttribute("title", article.getTitle());
         model.addAttribute("view", "article/view");
 
 
@@ -117,6 +121,7 @@ public class ArticleController {
         EditArticleModel articleModel = this.articleService.loadOneById(id);
 
         model.addAttribute("article", articleModel);
+        model.addAttribute("title", "Delete Article");
         model.addAttribute("view", "article/delete-article");
 
         return "default-page";

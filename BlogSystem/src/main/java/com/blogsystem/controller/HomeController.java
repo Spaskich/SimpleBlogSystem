@@ -24,6 +24,7 @@ public class HomeController {
 
         List<EditArticleModel> articles = this.articleService.loadAll();
         model.addAttribute("view","home");
+        model.addAttribute("title", "Home");
         model.addAttribute("articles", articles);
 
         return "default-page";

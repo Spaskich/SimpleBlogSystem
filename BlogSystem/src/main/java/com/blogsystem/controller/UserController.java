@@ -32,6 +32,7 @@ public class UserController {
     public String getRegisterPage(@ModelAttribute RegistrationModel registrationModel, Model model){
 
         model.addAttribute("view","user/register");
+        model.addAttribute("title", "Register");
 
         return "default-page";
     }
@@ -65,6 +66,7 @@ public class UserController {
     public String getLoginPage(@RequestParam(required = false) String error, Model model){
 
         model.addAttribute("view","user/login");
+        model.addAttribute("title", "Login");
 
         if(error != null){
             model.addAttribute("error", Errors.INVALID_CREDENTIALS);
@@ -80,6 +82,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("view", "user/profile");
+        model.addAttribute("title", "Profile");
 
         return "default-page";
     }
@@ -91,6 +94,7 @@ public class UserController {
         registrationModel.setUsername(user.getUsername());
 
         model.addAttribute("view","user/edit");
+        model.addAttribute("title", "Edit Profile");
 
         return "default-page";
     }
