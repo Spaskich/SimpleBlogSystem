@@ -4,6 +4,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,6 +30,10 @@ public class User implements UserDetails {
     private boolean isCredentialsNonExpired;
 
     private boolean isEnabled;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "author", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
@@ -104,5 +110,13 @@ public class User implements UserDetails {
 
     public void setAuthorities(Set<Role> authorities) {
         this.authorities = authorities;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
