@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
  * Created by Spaskich on 5.5.2017 г..
  */
 @ControllerAdvice
-class ErrorController {
+public class ErrorController {
 
     @ExceptionHandler(value = Exception.class)
     public String defaultErrorHandler(Exception e, Model model) throws Exception {

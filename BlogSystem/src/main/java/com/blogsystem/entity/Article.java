@@ -6,7 +6,9 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Spaskich on 2.5.2017 г..
@@ -30,6 +32,10 @@ public class Article {
 
     @Column(name = "date_published")
     private Date datePublished;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            mappedBy = "article", orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public Article() {
     }
@@ -72,5 +78,13 @@ public class Article {
 
     public void setDatePublished(Date datePublished) {
         this.datePublished = datePublished;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

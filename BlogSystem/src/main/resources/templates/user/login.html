@@ -7,7 +7,10 @@
             <h2 class="card-title">Login</h2>
         </div>
         <div class="card-block">
-            <div th:if="${error} != null" th:text="${error}"></div>
+            <div th:if="${error} != null">
+                <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+            </div>
+
             <form method="post">
                 <div class="form-group">
                     <label class="form-control-label" for="inputUsername">Username</label>
